@@ -1,6 +1,8 @@
 const Home = () => {
   return (
-    <div className=""> Landing </div>
+    <div className=""> 
+      Landing 
+    </div>
   );
 };
 
