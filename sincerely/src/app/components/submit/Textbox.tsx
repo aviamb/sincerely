@@ -1,25 +1,11 @@
 'use client';
 
-import { useState } from "react";
-import { db } from "../../../../lib/firebase";
-import {collection, addDoc, DocumentReference} from 'firebase/firestore';
+import { useAddEntry } from "@/app/hooks/useAddEntry";
 
 const Textbox = () => {
-    const [entry, setEntry] = useState('');
     
-        const handleAddEntry = async () => {
-            try {
-                const docRef = await addDoc(collection(db, 'entries'), {
-                    entry,
-                    createdAt: new Date()
-                });
-                console.log('entry added with ID: ', docRef.id);
-            } catch (e) {
-                console.error('error adding entry: ', e);
-            }
-            
-        };
-    
+    const { entry, setEntry, handleAddEntry } = useAddEntry();
+
         return (
             <div className=""> 
                 <textarea value={entry} onChange={(e) => setEntry(e.target.value)} />
