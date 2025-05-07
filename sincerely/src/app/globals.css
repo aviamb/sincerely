@@ -24,25 +24,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-logo {
-  width: 519px;
-  height: 106px;
-  flex-shrink: 0;
-}
-
-logo-text {
-  color: #505050;
-  font-family: "Chivo Mono";
-  font-size: 60.926px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  }
-
-logo-star {
-  width: 59px;
-  height: 59px;
-  transform: rotate(-15.416deg);
-  flex-shrink: 0;
-}
