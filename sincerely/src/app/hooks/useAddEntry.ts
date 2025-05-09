@@ -1,31 +1,58 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../../lib/firebase";
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, query, orderBy, serverTimestamp, Timestamp, onSnapshot} from 'firebase/firestore';
+
+interface Entry {
+    id: string;
+    text: string;
+    timestamp: Timestamp | null;
+}
 
 type UseAddEntryReturn = {
     entry: string;
     setEntry: React.Dispatch<React.SetStateAction<string>>;
     handleAddEntry: () => Promise<void>;
+    entries: Entry[];
   };
 
 export const useAddEntry = (): UseAddEntryReturn => {
     const [entry, setEntry] = useState('');
-    
-    const handleAddEntry = async () => {
-        try {
-            const docRef = await addDoc(collection(db, 'entries'), {
-                entry,
-                createdAt: new Date()
+    const [entries, setEntries] = useState<Entry[]>([]);
+
+    useEffect(() => {
+        const q = query(collection(db,'entries'), orderBy('timestamp','desc'));
+        
+        const f = onSnapshot(q, (querySnapshot) => {
+            const entriesData = querySnapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    text:data.entry,
+                    timestamp:data.timestamp || null
+                };
             });
-            console.log('entry added with ID: ', docRef.id);
+            setEntries(entriesData);
+        });
+        return () => f();
+    },[]);
+
+    const handleAddEntry = async () => {
+        if (!entry.trim()) return;
+
+        try {
+            await addDoc(collection(db, 'entries'), {
+                entry: entry,
+                timestamp: serverTimestamp()
+            });
+            setEntry('');
         } catch (e) {
             console.error('error adding entry: ', e);
         }
         
     };
 
-    return {entry, setEntry, handleAddEntry};
+    return {entry, setEntry, handleAddEntry, entries};
 }
 
