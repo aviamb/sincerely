@@ -1,5 +1,3 @@
-import React from 'react';
-
 const LoveTag = () => {
     return (
         <div className="bg-sincerelyBlue"> 

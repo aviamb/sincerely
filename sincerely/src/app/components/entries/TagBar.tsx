@@ -1,4 +1,3 @@
-import React from 'react';
 import LoveTag from "./loveTag";
 import OtherTag from "./otherTag";
 import ClassTag from "./classTag";

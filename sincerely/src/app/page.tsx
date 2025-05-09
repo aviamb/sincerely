@@ -1,7 +1,5 @@
-import React from 'react';
 import Textbox from "./components/submit/Textbox";
 import TagBar from './components/entries/TagBar';
-import ClassTag from  './components/entries/classTag';
 
 const Home = () => {
   return (
@@ -10,7 +8,6 @@ const Home = () => {
       <h1>Sincerely...</h1>
       <Textbox />
       <TagBar />
-      {/* <ClassTag /> */}
     </div>
   );
 };
