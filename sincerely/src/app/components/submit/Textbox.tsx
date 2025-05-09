@@ -1,13 +1,35 @@
 'use client';
+import { useEffect, useRef } from "react";
 import SendButton from "./SendButton";
 import Frame from "./Frame";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
 
 const Textbox = () => {
     const { entry, setEntry, handleAddEntry } = useAddEntry();
+    const textBoxRef = useRef<HTMLDivElement>(null);
+
+    // Resize handler
+    useEffect(() => {
+        const resizeTextBox = () => {
+            const windowWidth = window.innerWidth;
+            const newHeight = Math.min(500, (2000 - windowWidth) * 1.0);
+            const newWidth = Math.min(800, 600 + (windowWidth - 1200) * 0.1);
+            if (textBoxRef.current) {
+                textBoxRef.current.style.height = `${newHeight}px`;
+                textBoxRef.current.style.width = `${newWidth}px`;
+            }
+        };
+
+        resizeTextBox(); // Initial resize on mount
+        window.addEventListener("resize", resizeTextBox);
+        return () => window.removeEventListener("resize", resizeTextBox);
+    }, []);
 
     return (
-        <div className="w-[600px] h-[400px] bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4">
+        <div
+            ref={textBoxRef}
+            className="text-box bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4 transition-all duration-300"
+        >
             {/* Header */}
             <Frame />
 
