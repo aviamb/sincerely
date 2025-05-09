@@ -26,8 +26,7 @@ const SendButton: React.FC<SendButtonProps> = ({ onClick }) => {
     return (
         <button
             onClick={handleClick}
-            className="flex items-center space-x-2 px-3 py-1.5 bg-green-200 hover:bg-green-300 text-green-900 text-sm font-mono rounded-md shadow transition duration-200"
-        >
+            className="flex items-center space-x-2 px-3 py-1.5 bg-green-200 hover:bg-green-300 text-green-900 text-sm font-mono rounded-md shadow transition duration-200">
             <img src="/plane.svg" alt="Send Icon" className="w-4 h-4" />
             <span>send it</span>
         </button>

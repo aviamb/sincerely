@@ -1,5 +1,6 @@
 'use client';
 import SendButton from "./SendButton";
+import Frame from "./Frame";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
 
 const Textbox = () => {
@@ -8,10 +9,7 @@ const Textbox = () => {
     return (
         <div className="w-[600px] h-[400px] bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4">
             {/* Header */}
-            <div className="flex items-center space-x-3">
-                <img src="/plane.svg" alt="Plane Icon" className="w-6 h-6" />
-                <p className="text-zinc-400 text-md font-['Chivo_Mono']">I’ve always wanted to ask...</p>
-            </div>
+            <Frame />
 
             {/* Input Area */}
             <div className="relative flex-1">
