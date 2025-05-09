@@ -1,20 +1,19 @@
-"use client";
+'use client';
+import { MouseEventHandler } from "react";
 
-import { useState } from 'react';
+interface SendButtonProps {
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+}
 
-const SendButton = () => {
-    const [sent, setSent] = useState(false);
-
+const SendButton: React.FC<SendButtonProps> = ({ onClick }) => {
     return (
-        <div>
-            {!sent ? (
-                <button onClick={() => setSent(true)} className="scale-30">
-                    <img src="/send_button.png" alt="Send Button" className="w-full h-full" />
-                </button>
-            ) : (
-                <span>Message sent</span>
-            )}
-        </div>
+        <button
+            onClick={onClick}
+            className="flex items-center space-x-2 px-3 py-1.5 bg-green-200 hover:bg-green-300 text-green-900 text-sm font-mono rounded-md shadow transition duration-200"
+            >
+            <img src="/plane.svg" alt="Send Icon" className="w-4 h-4" />
+            <span>send it</span>
+        </button>
     );
 };
 

@@ -2,10 +2,12 @@ import Textbox from "./components/submit/Textbox";
 
 const Home = () => {
   return (
-    <div className="logo">
-      <img src="@/app/data/star" alt="Sincerely Logo" />
-      <h1>Sincerely...</h1>
-      <Textbox />
+    <div>
+      <nav className="flex items-center p-4 bg-gray-100">
+      </nav>
+      <div className="flex justify-center mt-8">
+        <Textbox />
+      </div>
     </div>
   );
 };
