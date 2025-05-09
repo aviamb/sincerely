@@ -1,7 +1,9 @@
+import EntriesGrid from "@/app/components/entries/EntriesGrid";
+
 const Entries = () => {
     return (
-      <div className=""> 
-        Entries 
+      <div className="w-full items-center justify-center p-10"> 
+        <EntriesGrid/>
       </div>
     );
   };
