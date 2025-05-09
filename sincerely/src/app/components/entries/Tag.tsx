@@ -10,7 +10,7 @@ const Tag = ({text, color, hover}: TagProps) => {
 
     return (
         <div> 
-            <button className={`text-white font-semibold py-2 px-4 rounded bg-${color} hover:bg-${hover}`}>
+            <button className={`text-white font-semibold py-2 px-4 rounded ${color} ${hover}`}>
                 { text }
             </button>
         </div>

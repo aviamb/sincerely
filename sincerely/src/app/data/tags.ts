@@ -7,22 +7,22 @@ interface tags {
 export const tags: tags[] = [
     {
         text: "#love",
-        color: "sincerely-red",
-        hover: "sincerely-red-hover",
+        color: "bg-sincerely-red",
+        hover: "hover:bg-sincerely-red-hover",
     },
     {
         text: "#class",
-        color: "sincerely-yellow",
-        hover: "sincerely-yellow-hover",
+        color: "bg-sincerely-yellow",
+        hover: "hover:bg-sincerely-yellow-hover",
     },
     {
         text: "#ucr",
-        color: "sincerely-blue",
-        hover: "sincerely-blue-hover",
+        color: "bg-sincerely-blue",
+        hover: "hover:bg-sincerely-blue-hover",
     },
     {
         text: "#other",
-        color: "sincerely-green",
-        hover: "sincerely-green-hover",
+        color: "bg-sincerely-green",
+        hover: "hover:bg-sincerely-green-hover",
     },
 ]
