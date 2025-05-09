@@ -2,17 +2,38 @@
 import SendButton from "./SendButton";
 import Frame from "./Frame";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
+import Tag from "@/app/components/entries/Tag"
+import { tags } from "@/app/data/tags"
 
 const Textbox = () => {
-    const { entry, setEntry, handleAddEntry } = useAddEntry();
+    const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags } = useAddEntry();
+
+    const handleTags = (text: string) => {
+
+        if (!selectedTags.includes(text)) {
+            setSelectedTags([...selectedTags, text]);
+            console.log("tag added");
+            }
+
+    }
 
     return (
         <div className="w-[600px] h-[400px] bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4">
             {/* Header */}
             <Frame />
-
             {/* Input Area */}
             <div className="relative flex-1">
+                <div className="scale-75 flex justify-center flex-row">
+                    {tags.map(({ text, color, hover}, index) => (
+                        <Tag 
+                            text={text}
+                            color={color}
+                            hover={hover}
+                            key={index}
+                            onClick = {() => handleTags(text)}
+                        />
+                    ))}
+                </div>
                 <textarea
                     value={entry}
                     onChange={(e) => setEntry(e.target.value)}
