@@ -14,7 +14,7 @@ const Entry = ({text, id, timestamp}: EntryProps) => {
 
         <Dialog>
       <DialogTrigger asChild>
-        <div className="aspect-square border p-6 break-words relative"> 
+        <div className="aspect-square border p-6 break-words relative cursor-pointer"> 
           <p className="line-clamp-10">{text}</p>
           <p className="absolute bottom-0 right-0 text-xs text-gray-500 p-4">
             {formattedTimestamp}
