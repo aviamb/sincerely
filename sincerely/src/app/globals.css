@@ -12,6 +12,15 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-chivoMono: "Chivo_Mono";
+  --color-sincerely-blue: #99DDFF;
+  --color-sincerely-blue-hover: #89C2DE;
+  --color-sincerely-red: #FFB3CC;
+  --color-sincerely-red-hover: #E891AD;
+  --color-sincerely-yellow: #F2DC87;
+  --color-sincerely-yellow-hover: #D4C791;
+  --color-sincerely-green: #BEEBA5;
+  --color-sincerely-green-hover: #9ED281;
+
 }
 
 @media (prefers-color-scheme: dark) {
