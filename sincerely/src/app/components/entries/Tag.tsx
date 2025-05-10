@@ -9,29 +9,26 @@ interface TagProps {
 
 
 const Tag = ({text, color, hover, onClick}: TagProps) => {
-    
-    //const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const bg = `bg-${color}`;
-    const hoverbg = `bg-${hover}`
-    //const tagText = text;
 
-    // const handleTags = (string: typeof text) => {
+    const handleClick = () => {
+        onClick?.();
+        setSelected(!selected);
+    }
 
-    //     if (!selectedTags.includes(text)) {
-    //         setSelectedTags([...selectedTags, text]);
-    //         console.log("tag added");
-    //         }
+    const [selected, setSelected] = useState(false);
 
-    // }
+    const bg = color;
+    const hoverbg = `hover:${hover}`;
+    const newText = selected ? text + '*' : text;
 
     return (
         <div> 
             <button 
-                onClick={onClick}
-                className={`text-black font-semibold py-2 px-4 rounded ${bg} hover:${hoverbg}`}
+                onClick={handleClick}
+                className={`cursor-pointer text-white font-semibold py-2 px-4 rounded ${bg} ${hoverbg}`}
 
             >
-                { text }
+                { newText }
             </button>
         </div>
     );

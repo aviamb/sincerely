@@ -13,7 +13,12 @@ const Textbox = () => {
         if (!selectedTags.includes(text)) {
             setSelectedTags([...selectedTags, text]);
             console.log("tag added");
-            }
+        }
+        else {
+            const newArray = selectedTags.filter((item, index) => item !== text);
+            setSelectedTags(newArray); // Updates the state with the new array
+        }
+        console.log(selectedTags);
 
     }
 
@@ -23,7 +28,7 @@ const Textbox = () => {
             <Frame />
             {/* Input Area */}
             <div className="relative flex-1">
-                <div className="scale-75 flex justify-center flex-row">
+                <div className="absolute bottom-1 right-120 left-1 flex flex-row space-x-1 scale-75 ml-2">
                     {tags.map(({ text, color, hover}, index) => (
                         <Tag 
                             text={text}
