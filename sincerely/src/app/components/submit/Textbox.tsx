@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef } from "react";
 import SendButton from "./SendButton";
 import Frame from "./Frame";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
@@ -6,24 +7,31 @@ import Tag from "@/app/components/entries/Tag"
 import { tags } from "@/app/data/tags"
 
 const Textbox = () => {
-    const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags } = useAddEntry();
+    const { entry, setEntry, handleAddEntry } = useAddEntry();
+    const textBoxRef = useRef<HTMLDivElement>(null);
 
-    const handleTags = (text: string) => {
+    // Resize handler
+    useEffect(() => {
+        const resizeTextBox = () => {
+            const windowWidth = window.innerWidth;
+            const newHeight = Math.min(500, (2000 - windowWidth) * 1.0);
+            const newWidth = Math.min(800, 600 + (windowWidth - 1200) * 0.1);
+            if (textBoxRef.current) {
+                textBoxRef.current.style.height = `${newHeight}px`;
+                textBoxRef.current.style.width = `${newWidth}px`;
+            }
+        };
 
-        if (!selectedTags.includes(text)) {
-            setSelectedTags([...selectedTags, text]);
-            console.log("tag added");
-        }
-        else {
-            const newArray = selectedTags.filter((item, index) => item !== text);
-            setSelectedTags(newArray); // Updates the state with the new array
-        }
-        console.log(selectedTags);
-
-    }
+        resizeTextBox(); // Initial resize on mount
+        window.addEventListener("resize", resizeTextBox);
+        return () => window.removeEventListener("resize", resizeTextBox);
+    }, []);
 
     return (
-        <div className="w-[600px] h-[400px] bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4">
+        <div
+            ref={textBoxRef}
+            className="text-box bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4 transition-all duration-300"
+        >
             {/* Header */}
             <Frame />
             {/* Input Area */}
@@ -42,11 +50,15 @@ const Textbox = () => {
                 <textarea
                     value={entry}
                     onChange={(e) => setEntry(e.target.value)}
+                    maxLength={2000}
                     className="w-full h-full resize-none rounded-[10px] bg-white p-4 border border-neutral-300 text-zinc-500 font-mono placeholder:text-zinc-400 placeholder:italic focus:outline-none"
                     placeholder=""
                 />
                 <div className="absolute bottom-4 right-4">
                     <SendButton onClick={handleAddEntry} />
+                </div>
+                <div className="absolute bottom-4 left-4 text-xs text-gray-500">
+                    {entry.length} / 2000
                 </div>
             </div>
         </div>
