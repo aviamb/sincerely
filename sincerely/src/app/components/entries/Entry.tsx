@@ -22,15 +22,15 @@ const Entry = ({text, id, timestamp}: EntryProps) => {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="aspect-square">
+      <DialogContent className="rounded-md aspect-3/4 md:aspect-square w-3/4">
         <VisuallyHidden asChild>
             <DialogTitle>Entry</DialogTitle>
         </VisuallyHidden>
-        <div className="space-y-4 p-6 overflow-y-auto">
-          <div className="text-sm text-gray-500">
+        <div className="space-y-4 p-1 md:p-3 overflow-y-auto">
+          <div className="text-xs md:text-sm text-gray-500">
             {formattedTimestamp}
           </div>
-          <div className="break-words">
+          <div className="break-words text-xs md:text-sm">
             {text}
           </div>
         </div>

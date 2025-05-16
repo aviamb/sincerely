@@ -13,7 +13,7 @@ const EntriesGrid = () => {
                 <TagBar />
             </div>
             
-            <div className="w-full grid grid-cols-4 gap-4"> 
+            <div className="w-full grid grids-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6"> 
                 {entries.map((entry) => (
                     <Entry 
                         key={entry.id}
