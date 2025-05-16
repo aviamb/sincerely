@@ -2,6 +2,7 @@ interface tags {
     text: string;
     color: string;
     hover: string;
+    // onClick: () => void;
 };
 
 export const tags: tags[] = [
