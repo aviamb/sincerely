@@ -38,11 +38,15 @@ const Textbox = () => {
                 <textarea
                     value={entry}
                     onChange={(e) => setEntry(e.target.value)}
+                    maxLength={2000}
                     className="w-full h-full resize-none rounded-[10px] bg-white p-4 border border-neutral-300 text-zinc-500 font-mono placeholder:text-zinc-400 placeholder:italic focus:outline-none"
                     placeholder=""
                 />
                 <div className="absolute bottom-4 right-4">
                     <SendButton onClick={handleAddEntry} />
+                </div>
+                <div className="absolute bottom-4 left-4 text-xs text-gray-500">
+                    {entry.length} / 2000
                 </div>
             </div>
         </div>
