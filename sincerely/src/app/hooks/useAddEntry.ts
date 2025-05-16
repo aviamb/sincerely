@@ -15,11 +15,14 @@ type UseAddEntryReturn = {
     setEntry: React.Dispatch<React.SetStateAction<string>>;
     handleAddEntry: () => Promise<void>;
     entries: Entry[];
+    selectedTags: string[];
+    setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   };
 
 export const useAddEntry = (): UseAddEntryReturn => {
     const [entry, setEntry] = useState('');
     const [entries, setEntries] = useState<Entry[]>([]);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
         const q = query(collection(db,'entries'), orderBy('timestamp','desc'));
@@ -44,15 +47,24 @@ export const useAddEntry = (): UseAddEntryReturn => {
         try {
             await addDoc(collection(db, 'entries'), {
                 entry: entry,
-                timestamp: serverTimestamp()
+                timestamp: serverTimestamp(),
+                tags: selectedTags
             });
             setEntry('');
+            setSelectedTags([]);
         } catch (e) {
             console.error('error adding entry: ', e);
         }
         
     };
 
-    return {entry, setEntry, handleAddEntry, entries};
+    return {
+        entry, 
+        setEntry, 
+        handleAddEntry, 
+        entries, 
+        selectedTags, 
+        setSelectedTags
+    };
 }
 

@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import SendButton from "./SendButton";
 import Frame from "./Frame";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
+import Tag from "@/app/components/entries/Tag"
+import { tags } from "@/app/data/tags"
 
 const Textbox = () => {
     const { entry, setEntry, handleAddEntry } = useAddEntry();
@@ -32,9 +34,19 @@ const Textbox = () => {
         >
             {/* Header */}
             <Frame />
-
             {/* Input Area */}
             <div className="relative flex-1">
+                <div className="absolute bottom-1 right-120 left-1 flex flex-row space-x-1 scale-75 ml-2">
+                    {tags.map(({ text, color, hover}, index) => (
+                        <Tag 
+                            text={text}
+                            color={color}
+                            hover={hover}
+                            key={index}
+                            onClick = {() => handleTags(text)}
+                        />
+                    ))}
+                </div>
                 <textarea
                     value={entry}
                     onChange={(e) => setEntry(e.target.value)}
