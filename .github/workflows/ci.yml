@@ -12,9 +12,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
-    # Step 1: Check out the repository
+    # Step 1: Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -22,25 +22,30 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '22'  # Make sure this is the correct version for your project
+        node-version: '22'
 
     # Step 3: Install dependencies
     - name: Install dependencies
-      run: |
-        cd sincerely  # Change directory to the `sincerely` folder where package.json is
-        npm install
+      run: npm install
 
-    # Step 4: Run tests
+    # Step 4: Install Firebase CLI
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    # Step 5: Set up Firestore emulator and run tests
+    - name: Start Firebase Emulator
+      run: |
+        firebase emulators:start --only firestore &
+        sleep 10 # Give emulator some time to start
+
     - name: Run tests
-      run: |
-        cd sincerely  # Ensure we're in the correct directory to run tests
-        npm test -- --detectOpenHandles  # Add any additional flags or commands if needed
+      run: npm test -- --detectOpenHandles
 
-    # Optional: Cache dependencies to speed up the workflow
+    # Optional: Cache node modules
     - name: Cache node modules
-      uses: actions/cache@v3
+      uses: actions/cache@v2
       with:
-        path: sincerely/node_modules  # Specify the correct path to node_modules
-        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/sincerely/package-lock.json') }}
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
