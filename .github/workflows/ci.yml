@@ -1,0 +1,41 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Node.js environment
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'  # Change to the version you're using in your project
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: npm test -- --detectOpenHandles  # Add any additional flags or commands if needed
+
+    # Optional: Cache dependencies to speed up the workflow
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
