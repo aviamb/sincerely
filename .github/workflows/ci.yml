@@ -40,6 +40,7 @@ jobs:
 
     - name: Run tests
       run: npm test -- --detectOpenHandles
+      working-directory: sincerely
 
     # Optional: Cache node modules
     - name: Cache node modules
