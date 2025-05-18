@@ -17,8 +17,8 @@ const Textbox = () => {
         else {
             const newArray = selectedTags.filter((item, index) => item !== text);
             setSelectedTags(newArray); // Updates the state with the new array
+            console.log("tag removed");
         }
-        console.log(selectedTags);
 
     }
 
@@ -34,8 +34,9 @@ const Textbox = () => {
                             text={text}
                             color={color}
                             hover={hover}
-                            key={index}
+                            key={`${text}-${selectedTags.includes(text)}`}
                             onClick = {() => handleTags(text)}
+                            selected = {selectedTags.includes(text)}
                         />
                     ))}
                 </div>
