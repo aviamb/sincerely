@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - alice/firebaseTesting
   pull_request:
     branches:
       - main
