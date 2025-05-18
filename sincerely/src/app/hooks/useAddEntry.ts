@@ -42,6 +42,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
     },[]);
 
     const handleAddEntry = async () => {
+        setSelectedTags([]);
         if (!entry.trim()) return;
 
         try {
@@ -51,7 +52,6 @@ export const useAddEntry = (): UseAddEntryReturn => {
                 tags: selectedTags
             });
             setEntry('');
-            setSelectedTags([]);
         } catch (e) {
             console.error('error adding entry: ', e);
         }
