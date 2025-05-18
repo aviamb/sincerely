@@ -26,17 +26,21 @@ jobs:
 
     # Step 3: Install dependencies
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd sincerely  # Change directory to the `sincerely` folder where package.json is
+        npm install
 
     # Step 4: Run tests
     - name: Run tests
-      run: npm test -- --detectOpenHandles  # Add any additional flags or commands if needed
+      run: |
+        cd sincerely  # Ensure we're in the correct directory to run tests
+        npm test -- --detectOpenHandles  # Add any additional flags or commands if needed
 
     # Optional: Cache dependencies to speed up the workflow
     - name: Cache node modules
       uses: actions/cache@v3
       with:
-        path: node_modules
-        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+        path: sincerely/node_modules  # Specify the correct path to node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/sincerely/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
