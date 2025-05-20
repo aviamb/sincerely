@@ -5,17 +5,16 @@ interface TagProps {
     color: string;
     hover: string; 
     onClick?: () => void;
+
+    selected: boolean;
 };
 
 
-const Tag = ({text, color, hover, onClick}: TagProps) => {
+const Tag = ({text, color, hover, onClick, selected}: TagProps) => {
 
     const handleClick = () => {
         onClick?.();
-        setSelected(!selected);
     }
-
-    const [selected, setSelected] = useState(false);
 
     const bg = color;
     const hoverbg = `hover:${hover}`;
