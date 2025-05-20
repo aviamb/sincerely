@@ -7,7 +7,7 @@ import Tag from "@/app/components/entries/Tag"
 import { tags } from "@/app/data/tags"
 
 const Textbox = () => {
-    const { entry, setEntry, handleAddEntry } = useAddEntry();
+    const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags } = useAddEntry();
     const textBoxRef = useRef<HTMLDivElement>(null);
 
     // Resize handler
@@ -21,12 +21,27 @@ const Textbox = () => {
                 textBoxRef.current.style.width = `${newWidth}px`;
             }
         };
-
+     
         resizeTextBox(); // Initial resize on mount
         window.addEventListener("resize", resizeTextBox);
         return () => window.removeEventListener("resize", resizeTextBox);
     }, []);
+    
+  //add or remove tags from the selected tags array
+    const handleTags = (text: string) => {
 
+        if (!selectedTags.includes(text)) {
+            setSelectedTags([...selectedTags, text]);
+            console.log("tag added");
+        }
+        else {
+            const newArray = selectedTags.filter((item, index) => item !== text);
+            setSelectedTags(newArray); // Updates the state with the new array
+            console.log("tag removed");
+        }
+
+    }
+    
     return (
         <div
             ref={textBoxRef}
@@ -42,8 +57,9 @@ const Textbox = () => {
                             text={text}
                             color={color}
                             hover={hover}
-                            key={index}
+                            key={`${text}-${selectedTags.includes(text)}`}
                             onClick = {() => handleTags(text)}
+                            selected = {selectedTags.includes(text)}
                         />
                     ))}
                 </div>
