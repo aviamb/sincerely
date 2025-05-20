@@ -36,7 +36,6 @@ const Entry = ({ text, id, timestamp, spotifyUrl }: EntryProps) => {
                 height="80"
                 frameBorder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                allowTransparency
                 title="Spotify Preview"
               ></iframe>
             </div>
