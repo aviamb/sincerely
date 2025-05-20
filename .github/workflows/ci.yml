@@ -1,0 +1,49 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+      - alice/firebaseTesting
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: sincerely
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Start Firebase Emulator
+      run: |
+        firebase emulators:start --only firestore &
+        sleep 10
+      working-directory: sincerely
+
+    - name: Run tests
+      run: npm test -- --detectOpenHandles
+      working-directory: sincerely
+
+    # Optional: Cache node modules
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
