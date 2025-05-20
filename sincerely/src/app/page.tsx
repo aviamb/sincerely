@@ -1,3 +1,4 @@
+import SpotifyEmbed from "./components/spotifyembed";
 import Textbox from "./components/submit/Textbox";
 
 const Home = () => {

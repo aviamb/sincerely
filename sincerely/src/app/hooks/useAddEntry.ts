@@ -52,6 +52,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
                 tags: selectedTags
             });
             setEntry('');
+            setSelectedTags([]);
         } catch (e) {
             console.error('error adding entry: ', e);
         }
