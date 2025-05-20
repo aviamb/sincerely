@@ -42,6 +42,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
     },[]);
 
     const handleAddEntry = async () => {
+        setSelectedTags([]);
         if (!entry.trim()) return;
 
         try {
