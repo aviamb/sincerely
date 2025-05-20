@@ -20,7 +20,11 @@
   --color-sincerely-yellow-hover: #D4C791;
   --color-sincerely-green: #BEEBA5;
   --color-sincerely-green-hover: #9ED281;
-
+  --color-sincerely-grey-frame: #EFEFEF;
+  --color-sincerely-grey-frame-border: #D2D2D2;
+  --color-sincerely-grey-inside-border: #737373;
+  --color-sincerely-green-send-it: #96CA7A;
+  --color-sincerely-green-send-it-hover: #7EA867;
 }
 
 @media (prefers-color-scheme: dark) {
