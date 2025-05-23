@@ -9,7 +9,7 @@ const EntriesGrid = () => {
 
     return (
         <div>
-            <div className="flex justify-end mb-15">
+            <div className="flex mb-6">
                 <TagBar />
             </div>
             
