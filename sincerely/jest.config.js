@@ -1,15 +1,18 @@
 // jest.config.js
-const nextJest = require('next/jest');
+const nextJest = require('next/jest')
 
-const createJestConfig = nextJest({ dir: './' });
+const createJestConfig = nextJest({ dir: './' })
 
 const customJestConfig = {
-  testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
-  moduleDirectories: ['node_modules', '<rootDir>/'],
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1', // <== this line resolves @ alias
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|scss|sass|less)$': 'identity-obj-proxy',
   },
-};
+  transformIgnorePatterns: [
+    '/node_modules/(?!lucide-react)', 
+  ],
+}
 
-module.exports = createJestConfig(customJestConfig);
+module.exports = createJestConfig(customJestConfig)
