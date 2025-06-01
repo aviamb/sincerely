@@ -8,6 +8,7 @@ interface Entry {
     id: string;
     text: string;
     timestamp: Timestamp | null;
+    tags?: string[];
 }
 
 type UseAddEntryReturn = {
@@ -33,7 +34,8 @@ export const useAddEntry = (): UseAddEntryReturn => {
                 return {
                     id: doc.id,
                     text:data.entry,
-                    timestamp:data.timestamp || null
+                    timestamp:data.timestamp || null,
+                    tags: data.tags || []
                 };
             });
             setEntries(entriesData);

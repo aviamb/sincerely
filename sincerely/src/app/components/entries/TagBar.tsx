@@ -5,7 +5,12 @@ import { useState, useEffect, useRef } from 'react';
 import Tag from '@/app/components/entries/Tag';
 import { tags } from '@/app/data/tags';
 
-const TagBar = () => {
+interface TagBarProps {
+    selectedTags: string[];
+    onTagSelect: (tag: string) => void;
+}
+
+const TagBar = ({ selectedTags, onTagSelect }: TagBarProps) => {
     const [isOpen, setOpen] = useState(false);
     const [menuWidth, setMenuWidth] = useState(300);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -49,6 +54,8 @@ const TagBar = () => {
                             color={color}
                             hover={hover}
                             key={index}
+                            selected={selectedTags.includes(text)}
+                            onClick={() => onTagSelect(text)}
                         />
                     ))}
                 </div>

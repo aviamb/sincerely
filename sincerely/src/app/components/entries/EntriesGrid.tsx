@@ -3,18 +3,36 @@
 import Entry from "@/app/components/entries/Entry";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
 import TagBar from "./TagBar";
+import { useState } from "react";
 
 const EntriesGrid = () => {
-    const { entries } = useAddEntry();
+    const { entries, selectedTags, setSelectedTags } = useAddEntry();
+
+    const handleTagSelect = (tag: string) => {
+        setSelectedTags(prev => 
+            prev.includes(tag) 
+                ? prev.filter(t => t !== tag) 
+                : [...prev, tag]
+        );
+    };
+
+   const filteredEntries = selectedTags.length > 0
+        ? entries.filter(entry => {
+            return entry.tags?.some(tag => selectedTags.includes(tag)) || false;
+        })
+        : entries;
 
     return (
         <div>
             <div className="flex mb-6">
-                <TagBar />
+                <TagBar 
+                    selectedTags={selectedTags} 
+                    onTagSelect={handleTagSelect} 
+                />
             </div>
             
             <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6"> 
-                {entries.map((entry) => (
+                {filteredEntries.map((entry) => (
                     <Entry 
                         key={entry.id}
                         id={entry.id}
