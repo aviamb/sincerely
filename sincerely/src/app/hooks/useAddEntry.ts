@@ -43,6 +43,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
     },[]);
 
     const handleAddEntry = async (fileName: string) => {
+
         if (!entry.trim()) return;
 
         try {

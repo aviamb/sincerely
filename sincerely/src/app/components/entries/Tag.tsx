@@ -23,7 +23,7 @@ const Tag = ({text, color, hover, onClick, selected}: TagProps) => {
         <div> 
             <button 
                 onClick={handleClick}
-                className={`cursor-pointer text-white font-semibold py-2 px-4 rounded ${bg} ${hoverbg}`}
+                className={`cursor-pointer text-white text-xs sm:text-sm md:text-md font-semibold py-1 px-2 sm:py-2 sm:px-4 rounded ${bg} ${hoverbg}`}
 
             >
                 { newText }

@@ -4,8 +4,8 @@ import { tags } from "@/app/data/tags"
 const Frame = () => {
     return (
         <div className="flex justify-left items-center space-x-3">
-            <img src="/plane.svg" alt="Plane Icon" className="w-6 h-6" />
-            <p className="text-zinc-400 text-md font-['Chivo_Mono']">I’ve always wanted to ask...</p>
+            <img src="/plane.svg" alt="Plane Icon" className="w-5 h-10 ml-2" />
+            <p className="text-zinc-400 text-md font-['Chivo_Mono'] ml-1">I’ve always wanted to ask...</p>
         </div>
     );
 };

@@ -70,17 +70,23 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
 
     }
 
-
     return (
         <div
             ref={textBoxRef}
-            className="text-box bg-neutral-400/25 rounded-[10px] outline outline-[5px] outline-neutral-300 p-4 flex flex-col justify-start space-y-4 transition-all duration-300"
+            className="relative w-full bg-sincerely-grey-frame border-2 border-sincerely-grey-frame-border rounded-sm p-1 shadow-md flex flex-col space-y-1 justify-between"
         >
-            {/* Header */}
             <Frame />
-            {/* Input Area */}
-            <div className="relative flex-1">
-                <div className="absolute bottom-1 right-120 left-1 flex flex-row space-x-1 scale-75 ml-2">
+            <textarea
+                    value={entry}
+                    onChange={(e) => setEntry(e.target.value)}
+                    className="w-full h-full resize-none rounded-md bg-white px-4 py-8 border border-sincerely-grey-inside-border text-zinc-500 placeholder:text-zinc-400 placeholder:italic focus:outline-none"
+                    placeholder=""
+                />
+                <div className="absolute top-15 right-4 text-gray-400">
+                        {entry.length} / 2000
+                    </div>   
+            <div className="grid grid-cols-2 sm:grid-cols-[4fr_1fr]">
+                <div className="flex space-x-1">
                     {tags.map(({ text, color, hover}, index) => (
                         <Tag 
                             text={text}
@@ -116,6 +122,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
                 <div className="absolute bottom-4 left-4 text-xs text-gray-500">
                     {entry.length} / 2000
                 </div>
+
             </div>
         </div>
     );

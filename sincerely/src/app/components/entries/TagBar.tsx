@@ -1,21 +1,59 @@
-import Tag from "@/app/components/entries/Tag"
-import { tags } from "@/app/data/tags"
+'use client';
+import React from 'react';
+import Hamburger from 'hamburger-react';
+import { useState, useEffect, useRef } from 'react';
+import Tag from '@/app/components/entries/Tag';
+import { tags } from '@/app/data/tags';
 
 const TagBar = () => {
+    const [isOpen, setOpen] = useState(false);
+    const [menuWidth, setMenuWidth] = useState(300);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    // Responsive menu width
+    useEffect(() => {
+        const handleResize = () => {
+            const width = Math.max(250, Math.min(390, window.innerWidth * 0.5));
+            setMenuWidth(width);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
-        <div className="border-2 w-120 rounded-4xl border-gray-300">
-            <div className="flex justify-center gap-4 flex-row p-2"> 
-                {tags.map(({ text, color, hover}, index) => (
-                    <Tag 
-                        text={text}
-                        color={color}
-                        hover={hover}
-                        key={index}
-                    />
-                ))}
+        <div className="relative flex items-start">
+            {/* Hamburger Icon */}
+            <div className="p-1">
+                <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+            </div>
+
+            {/* Tag Menu */}
+            <div
+                ref={menuRef}
+                className={`
+                    absolute left-full top-0 ml-4 bg-white border border-gray-300 rounded-2xl shadow-md px-4 py-2 z-10
+                    transition-all duration-300 ease-in-out overflow-hidden
+                    transform
+                    ${isOpen ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 -translate-x-6 scale-95 pointer-events-none'}
+                `}
+                style={{
+                    width: `${menuWidth}px`,
+                }}
+            >
+                <div className="flex flex-row flex-wrap gap-2">
+                    {tags.map(({ text, color, hover }, index) => (
+                        <Tag
+                            text={text}
+                            color={color}
+                            hover={hover}
+                            key={index}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
-        
     );
 };
 
