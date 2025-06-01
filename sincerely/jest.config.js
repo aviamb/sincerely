@@ -10,6 +10,9 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1', // <== this line resolves @ alias
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!lucide-react)', 
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
