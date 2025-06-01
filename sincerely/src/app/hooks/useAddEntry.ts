@@ -9,6 +9,7 @@ interface Entry {
     id: string;
     text: string;
     timestamp: Timestamp | null;
+    tags?: string[];
     imageUrl?: string;
 }
 
@@ -41,6 +42,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
                     id: doc.id,
                     text:data.entry,
                     timestamp:data.timestamp || null,
+                    tags: data.tags || []
                     imageUrl: data.imageUrl || undefined
                 };
             });
