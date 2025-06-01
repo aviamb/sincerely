@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -17,10 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase + firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-// If running in test mode, connect to local emulator
-if (process.env.NODE_ENV === "test") {
-  connectFirestoreEmulator(db, "localhost", 8080);
-}
+export {app, db, storage};
 
-export {app, db};

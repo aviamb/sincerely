@@ -5,7 +5,6 @@ interface TagProps {
     color: string;
     hover: string; 
     onClick?: () => void;
-
     selected: boolean;
 };
 

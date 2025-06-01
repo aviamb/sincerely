@@ -1,32 +1,26 @@
 'use client';
 import { useEffect, useRef } from "react";
+import Image from "next/image";
+
 import SendButton from "./SendButton";
 import Frame from "./Frame";
-import { useAddEntry } from "@/app/hooks/useAddEntry";
 import Tag from "@/app/components/entries/Tag"
+import PreviewImage from "./PreviewImage";
+
+import { UseAddEntryReturn } from "@/app/hooks/useAddEntry";
+import { UploadImageHook } from "@/app/hooks/uploadImage";
 import { tags } from "@/app/data/tags"
 
-const Textbox = () => {
-    const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags } = useAddEntry();
+interface TextboxProps {
+    upload: UploadImageHook,
+    entryHook: UseAddEntryReturn
+}
+
+const Textbox = ({upload, entryHook}: TextboxProps) => {
+    const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags} = entryHook;
+    const { previewUrl, handleUpload, fileName, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
-
-    // Resize handler
-    useEffect(() => {
-        const resizeTextBox = () => {
-            const windowWidth = window.innerWidth;
-            const newHeight = Math.min(500, (2000 - windowWidth) * 1.0);
-            const newWidth = Math.min(800, 600 + (windowWidth - 1200) * 0.1);
-            if (textBoxRef.current) {
-                textBoxRef.current.style.height = `${newHeight}px`;
-                textBoxRef.current.style.width = `${newWidth}px`;
-            }
-        };
-
-        resizeTextBox(); // Initial resize on mount
-        window.addEventListener("resize", resizeTextBox);
-        return () => window.removeEventListener("resize", resizeTextBox);
-    }, []);
-
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     // Resize handler
     useEffect(() => {
@@ -44,6 +38,14 @@ const Textbox = () => {
         window.addEventListener("resize", resizeTextBox);
         return () => window.removeEventListener("resize", resizeTextBox);
     }, []);
+
+    useEffect(() => {
+        if (textAreaRef.current) {
+            textAreaRef.current.style.height = "auto"
+            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+        }
+
+    }, [entry])
     
   //add or remove tags from the selected tags array
     const handleTags = (text: string) => {
@@ -60,6 +62,14 @@ const Textbox = () => {
 
     }
     
+    const handleClick = async () => {
+
+        await handleUpload();
+        handleAddEntry(fileName);
+        setPreviewUrl("");
+
+    }
+
     return (
         <div
             ref={textBoxRef}
@@ -87,10 +97,32 @@ const Textbox = () => {
                             selected = {selectedTags.includes(text)}
                         />
                     ))}
-                </div> 
-                <div className="absolute right-1">
-                    <SendButton onClick={handleAddEntry} />
-                </div>                
+                </div>
+                <div className="flex-column items-center w-full h-full rounded-[10px] bg-white p-4 border border-neutral-300 overflow-y-scroll max-h-[400px]">
+                    <textarea
+                        value={entry}
+                        onChange={(e) => setEntry(e.target.value)}
+                        maxLength={2000}
+                        className=" w-full text-zinc-500 font-mono placeholder:text-zinc-400 placeholder:italic focus:outline-none resize-none"
+                        placeholder=""
+                        ref={textAreaRef}
+                    />
+                    {/* <Image 
+                        src = {previewUrl || "plane.svg"}
+                        alt = "plane.svg"
+                        width={300}
+                        height = {300}
+                        className="m-auto left-0 right-0"
+                    /> */}
+                    {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}/>}
+                </div>
+                <div className="absolute bottom-4 right-4">
+                    <SendButton onClick={handleClick} />
+                </div>
+                <div className="absolute bottom-4 left-4 text-xs text-gray-500">
+                    {entry.length} / 2000
+                </div>
+
             </div>
         </div>
     );

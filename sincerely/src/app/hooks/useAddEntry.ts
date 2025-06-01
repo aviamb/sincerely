@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../../../lib/firebase";
 import {collection, addDoc, query, orderBy, serverTimestamp, Timestamp, onSnapshot} from 'firebase/firestore';
+import { uploadImage } from "./uploadImage";
 
 interface Entry {
     id: string;
@@ -10,17 +11,17 @@ interface Entry {
     timestamp: Timestamp | null;
 }
 
-type UseAddEntryReturn = {
+export interface UseAddEntryReturn {
     entry: string;
     setEntry: React.Dispatch<React.SetStateAction<string>>;
-    handleAddEntry: () => Promise<void>;
+    handleAddEntry: (fileName: string) => Promise<void>;
     entries: Entry[];
     selectedTags: string[];
     setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   };
 
 export const useAddEntry = (): UseAddEntryReturn => {
-    const [entry, setEntry] = useState('');
+    const [entry, setEntry] = useState("");
     const [entries, setEntries] = useState<Entry[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -41,15 +42,16 @@ export const useAddEntry = (): UseAddEntryReturn => {
         return () => f();
     },[]);
 
-    const handleAddEntry = async () => {
-        setSelectedTags([]);
+    const handleAddEntry = async (fileName: string) => {
+
         if (!entry.trim()) return;
 
         try {
             await addDoc(collection(db, 'entries'), {
                 entry: entry,
                 timestamp: serverTimestamp(),
-                tags: selectedTags
+                tags: selectedTags,
+                imageFileName: fileName
             });
             setEntry('');
             setSelectedTags([]);
@@ -65,7 +67,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
         handleAddEntry, 
         entries, 
         selectedTags, 
-        setSelectedTags
+        setSelectedTags,
     };
 }
 
