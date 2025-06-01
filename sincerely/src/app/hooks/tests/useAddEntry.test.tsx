@@ -1,4 +1,4 @@
-jest.setTimeout(60000); // Set global timeout to 20s for all tests in this file
+jest.setTimeout(10000); // Set global timeout to 20s for all tests in this file
 
 import { initializeApp, deleteApp } from 'firebase/app';
 import {
@@ -49,7 +49,7 @@ test('should add and retrieve an entry with text', async () => {
   const docSnapshot = await getDoc(docRef);
   const data = docSnapshot.data();
   expect(data?.entry).toBe('Test Message');
-}, 60000); 
+}, 10000); 
 
 // Test for tags field
 test('should add and retrieve an entry with tags', async () => {
@@ -59,7 +59,7 @@ test('should add and retrieve an entry with tags', async () => {
   const docSnapshot = await getDoc(docRef);
   const data = docSnapshot.data();
   expect(data?.tags).toEqual(['tag1', 'tag2']);
-}, 60000); 
+}, 10000); 
 
 
 // Test for image field (future use)
