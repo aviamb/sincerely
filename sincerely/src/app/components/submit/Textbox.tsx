@@ -76,9 +76,9 @@ const Textbox = () => {
                             text={text}
                             color={color}
                             hover={hover}
-                            key={`${text}-${selectedTags.includes(text)}`}
+                            key={`${text}-${(selectedTags || []).includes(text)}`}
                             onClick = {() => handleTags(text)}
-                            selected = {selectedTags.includes(text)}
+                            selected={(selectedTags || []).includes(text)}
                         />
                     ))}
                 </div>

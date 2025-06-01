@@ -1,15 +1,14 @@
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',  // Changed from 'node' to 'jsdom'
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',  // for TypeScript files
-  },
-  transformIgnorePatterns: [
-    '/node_modules/(?!firebase|some-other-library).+\\.js$', // Add firebase to transform it
-  ],
+// jest.config.js
+const nextJest = require('next/jest');
+
+const createJestConfig = nextJest({ dir: './' });
+
+const customJestConfig = {
+  testEnvironment: 'jsdom',
+  moduleDirectories: ['node_modules', '<rootDir>/'],
   moduleNameMapper: {
-    '\\.(css|less)$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1', // <== this line resolves @ alias
   },
-  forceExit: true,  // Force Jest to exit after tests
-  detectOpenHandles: true,  // Detect open async handles
 };
+
+module.exports = createJestConfig(customJestConfig);

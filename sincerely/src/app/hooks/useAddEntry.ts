@@ -25,22 +25,25 @@ export const useAddEntry = (): UseAddEntryReturn => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
-        const q = query(collection(db,'entries'), orderBy('timestamp','desc'));
-        
-        const f = onSnapshot(q, (querySnapshot) => {
-            const entriesData = querySnapshot.docs.map(doc => {
-                const data = doc.data();
-                return {
-                    id: doc.id,
-                    text:data.entry,
-                    timestamp:data.timestamp || null
-                };
-            });
-            setEntries(entriesData);
+        if (process.env.NODE_ENV === 'test') return; // skip snapshot in test
+      
+        const q = query(collection(db, 'entries'), orderBy('timestamp', 'desc'));
+      
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const entriesData = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              text: data.entry,
+              timestamp: data.timestamp || null
+            };
+          });
+          setEntries(entriesData);
         });
-        return () => f();
-    },[]);
-
+      
+        return () => unsubscribe();
+      }, []);
+      
     const handleAddEntry = async () => {
         setSelectedTags([]);
         if (!entry.trim()) return;

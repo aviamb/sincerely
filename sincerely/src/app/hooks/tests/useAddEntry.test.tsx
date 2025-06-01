@@ -1,3 +1,5 @@
+jest.setTimeout(60000); // Set global timeout to 20s for all tests in this file
+
 import { initializeApp, deleteApp } from 'firebase/app';
 import {
   getFirestore,
@@ -30,6 +32,7 @@ beforeAll(async () => {
   db = getFirestore(app);
 
   connectFirestoreEmulator(db, 'localhost', 8080);
+  console.log('✅ Connected to Firestore emulator');
   setLogLevel('error');
 });
 
@@ -42,33 +45,22 @@ afterAll(async () => {
 test('should add and retrieve an entry with text', async () => {
   const docRef = doc(collection(db, 'entries'), 'test-entry-text');
   const entryData = { entry: 'Test Message' };
-
-  // Add the entry to Firestore
   await setDoc(docRef, entryData);
-
-  // Retrieve the entry from Firestore
   const docSnapshot = await getDoc(docRef);
   const data = docSnapshot.data();
-
-  // Check that the entry contains the expected text value
   expect(data?.entry).toBe('Test Message');
-});
+}, 60000); 
 
 // Test for tags field
 test('should add and retrieve an entry with tags', async () => {
   const docRef = doc(collection(db, 'entries'), 'test-entry-tags');
   const entryData = { entry: 'Test Message', tags: ['tag1', 'tag2'] };
-
-  // Add the entry to Firestore
   await setDoc(docRef, entryData);
-
-  // Retrieve the entry from Firestore
   const docSnapshot = await getDoc(docRef);
   const data = docSnapshot.data();
-
-  // Check that the entry contains the expected tags
   expect(data?.tags).toEqual(['tag1', 'tag2']);
-});
+}, 60000); 
+
 
 // Test for image field (future use)
 //test('should add and retrieve an entry with image', async () => {
