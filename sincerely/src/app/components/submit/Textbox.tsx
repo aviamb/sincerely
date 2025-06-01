@@ -23,7 +23,6 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
     const editableRef = useRef<HTMLDivElement>(null);
 
 
-    // Resize handler
     useEffect(() => {
         const resizeTextBox = () => {
             const windowWidth = window.innerWidth;
@@ -35,7 +34,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
             }
         };
      
-        resizeTextBox(); // Initial resize on mount
+        resizeTextBox();
         window.addEventListener("resize", resizeTextBox);
         return () => window.removeEventListener("resize", resizeTextBox);
     }, []);
@@ -49,15 +48,15 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
         }
         else {
             const newArray = selectedTags.filter((item, index) => item !== text);
-            setSelectedTags(newArray); // Updates the state with the new array
+            setSelectedTags(newArray); 
             console.log("tag removed");
         }
 
     }
     
    const handleClick = async () => {
-    const imageUrl = await handleUpload(); // Get the URL from handleUpload
-    await handleAddEntry(imageUrl); // Pass the URL instead of fileName
+    const imageUrl = await handleUpload(); 
+    await handleAddEntry(imageUrl); 
     setPreviewUrl("");
 }
 

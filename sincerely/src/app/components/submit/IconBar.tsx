@@ -7,14 +7,10 @@ import ImageUploadButton from "./ImageUploadDialog";
 const IconBar = ({upload} : { upload: UploadImageHook }) => {
 
   return (
-    <div className="inline-flex space-x-2 h-10 rounded-lg bg-[#f0f0f0] border-3 border-[#c7c7c7] p-2">
+    <div className="inline-flex space-x-2 h-10 rounded-lg bg-[#f0f0f0] border-3 border-[#c7c7c7] p-2 mt-2">
       <ImageUploadButton upload={upload}/>
-      <div className="w-6 h-6" title="Link the music">
-        <Music className=""/>
-      </div>
-      <div className="w-6 h-6" title="Add a link">
-        <Link className=""/>
-      </div>
+      <Music className="w-6 h-6" color="#808080"/>
+      <Link className="w-6 h-6" color="#808080"/>
     </div>
   );
 };

@@ -13,16 +13,18 @@ interface EntryProps {
 }
 
 const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
+  //timestamp
   const formattedTimestamp = timestamp?.toDate?.().toLocaleDateString() || "Undated";
 
+  //spotify
   const extractSpotifyEmbedUrl = (text: string): string | null => {
     const match = text.match(/https?:\/\/open\.spotify\.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/);
     return match ? `https://open.spotify.com/embed/${match[1]}/${match[2]}` : null;
   };
-
   const embedUrl = spotifyUrl || extractSpotifyEmbedUrl(text);
   const cleanText = text.replace(/https?:\/\/open\.spotify\.com\/(track|album|playlist|episode)\/[a-zA-Z0-9]+(\?[^ ]*)?/g, "").trim();
 
+  //images
   const shouldShowImage = imageUrl && (
     imageUrl.startsWith('http') || 
     imageUrl.startsWith('https') ||
@@ -54,7 +56,6 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
                 src={embedUrl}
                 width="100%"
                 height="80"
-                frameBorder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 title="Spotify Preview"
               ></iframe>
@@ -92,7 +93,6 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
               src={embedUrl}
               width="100%"
               height="152"
-              frameBorder="0"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               allowTransparency
               className="mt-2"

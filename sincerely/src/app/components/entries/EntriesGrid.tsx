@@ -8,6 +8,7 @@ import { useState } from "react";
 const EntriesGrid = () => {
     const { entries, selectedTags, setSelectedTags } = useAddEntry();
 
+    //tag selection logic
     const handleTagSelect = (tag: string) => {
         setSelectedTags(prev => 
             prev.includes(tag) 
@@ -16,6 +17,7 @@ const EntriesGrid = () => {
         );
     };
 
+    //tag-filtered entries 
    const filteredEntries = selectedTags.length > 0
         ? entries.filter(entry => {
             return entry.tags?.some(tag => selectedTags.includes(tag)) || false;
