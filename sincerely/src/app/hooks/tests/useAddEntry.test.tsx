@@ -1,4 +1,4 @@
-import { initializeApp, deleteApp } from 'firebase/app';
+const { initializeApp, deleteApp } = require('firebase/app');
 import {
   getFirestore,
   collection,
