@@ -38,6 +38,7 @@ const EntriesGrid = () => {
                         id={entry.id}
                         text={entry.text}
                         timestamp={entry.timestamp}
+                        imageUrl={entry.imageUrl}
                     />
                 ))}
             </div>
