@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/app/ui/Dialog"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
-// import { Image, Music, Link } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Image from "next/image";
 import { uploadImage, UploadImageHook } from "@/app/hooks/uploadImage";

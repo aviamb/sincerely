@@ -59,7 +59,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
             entry: entry,
             timestamp: serverTimestamp(),
             tags: selectedTags,
-            imageUrl: imageUrl || null // Use the passed URL
+            imageUrl: imageUrl || null 
         });
         setEntry('');
         setSelectedTags([]);

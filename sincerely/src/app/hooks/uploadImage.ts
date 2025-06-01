@@ -37,15 +37,13 @@ export const uploadImage = (
         if (!file) return null;
 
         try {
-            // Add timestamp to filename to make it unique
             const uniqueFileName = `${Date.now()}-${file.name}`;
             const storageRef = ref(storage, `images/${uniqueFileName}`);
             
             await uploadBytes(storageRef, file);
             const url = await getDownloadURL(storageRef);
-                    console.log('Uploaded image URL:', url); // Add this line
+                    console.log('Uploaded image URL:', url); 
 
-            // Ensure the URL is properly formatted
             if (!url.startsWith('http')) {
                 throw new Error('Invalid URL returned from storage');
             }

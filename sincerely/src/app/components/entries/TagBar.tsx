@@ -15,7 +15,7 @@ const TagBar = ({ selectedTags, onTagSelect }: TagBarProps) => {
     const [menuWidth, setMenuWidth] = useState(300);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // Responsive menu width
+    //responsive menu width
     useEffect(() => {
         const handleResize = () => {
             const width = Math.max(250, Math.min(390, window.innerWidth * 0.5));
