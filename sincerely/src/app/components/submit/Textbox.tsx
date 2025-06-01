@@ -63,14 +63,20 @@ const Textbox = () => {
     return (
         <div
             ref={textBoxRef}
-            className="w-[700px] h-[550px] bg-sincerely-grey-frame border-2 border-sincerely-grey-frame-border rounded-sm p-1 shadow-md flex flex-col space-y-1 justify-between"
-
+            className="relative w-full bg-sincerely-grey-frame border-2 border-sincerely-grey-frame-border rounded-sm p-1 shadow-md flex flex-col space-y-1 justify-between"
         >
-            {/* Header */}
             <Frame />
-            {/* Input Area */}
-            <div className="relative flex-1">
-                <div className="absolute bottom-[5px] right-[1000px] left-[0px] flex flex-row space-x-1 scale-85 ml-2">
+            <textarea
+                    value={entry}
+                    onChange={(e) => setEntry(e.target.value)}
+                    className="w-full h-full resize-none rounded-md bg-white px-4 py-8 border border-sincerely-grey-inside-border text-zinc-500 placeholder:text-zinc-400 placeholder:italic focus:outline-none"
+                    placeholder=""
+                />
+                <div className="absolute top-15 right-4 text-gray-400">
+                        {entry.length} / 2000
+                    </div>   
+            <div className="grid grid-cols-2 sm:grid-cols-[4fr_1fr]">
+                <div className="flex space-x-1">
                     {tags.map(({ text, color, hover}, index) => (
                         <Tag 
                             text={text}
@@ -81,23 +87,10 @@ const Textbox = () => {
                             selected = {selectedTags.includes(text)}
                         />
                     ))}
-                </div>
-                <textarea
-                    value={entry}
-                    onChange={(e) => setEntry(e.target.value)}
-                    maxLength={2000}
-                    className="w-full h-full resize-none rounded-md bg-white p-4 border border-sincerely-grey-inside-border text-zinc-500 font-mono placeholder:text-zinc-400 placeholder:italic focus:outline-none"
-                    placeholder=""
-                />
-                <div className="flex flex-row">
-                    <div className="absolute bottom-2 right-2">
-                        <SendButton onClick={handleAddEntry} />
-                    </div>
-                    <div className="absolute bottom-[48px] left-[555px] text-xs text-gray-500">
-                        {entry.length} / 2000
-                    </div>
-                </div>
-                
+                </div> 
+                <div className="absolute right-1">
+                    <SendButton onClick={handleAddEntry} />
+                </div>                
             </div>
         </div>
     );
