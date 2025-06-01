@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - alice/firebaseTesting
+      - randalln/frontendtesting
   pull_request:
     branches:
       - main
