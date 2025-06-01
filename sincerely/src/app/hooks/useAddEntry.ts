@@ -9,12 +9,13 @@ interface Entry {
     id: string;
     text: string;
     timestamp: Timestamp | null;
+    imageUrl?: string;
 }
 
 export interface UseAddEntryReturn {
     entry: string;
     setEntry: React.Dispatch<React.SetStateAction<string>>;
-    handleAddEntry: (fileName: string) => Promise<void>;
+    handleAddEntry: (imageUrl?: string) => Promise<void>;
     entries: Entry[];
     selectedTags: string[];
     setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
@@ -25,6 +26,11 @@ export const useAddEntry = (): UseAddEntryReturn => {
     const [entries, setEntries] = useState<Entry[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+    const isValidImageUrl = (url?: string): url is string => {
+        return !!url && (url.startsWith('http') || url.startsWith('/'));
+    };
+
+
     useEffect(() => {
         const q = query(collection(db,'entries'), orderBy('timestamp','desc'));
         
@@ -34,7 +40,8 @@ export const useAddEntry = (): UseAddEntryReturn => {
                 return {
                     id: doc.id,
                     text:data.entry,
-                    timestamp:data.timestamp || null
+                    timestamp:data.timestamp || null,
+                    imageUrl: data.imageUrl || undefined
                 };
             });
             setEntries(entriesData);
@@ -42,24 +49,22 @@ export const useAddEntry = (): UseAddEntryReturn => {
         return () => f();
     },[]);
 
-    const handleAddEntry = async (fileName: string) => {
+    const handleAddEntry = async (imageUrl?: string) => {
+    if (!entry.trim()) return;
 
-        if (!entry.trim()) return;
-
-        try {
-            await addDoc(collection(db, 'entries'), {
-                entry: entry,
-                timestamp: serverTimestamp(),
-                tags: selectedTags,
-                imageFileName: fileName
-            });
-            setEntry('');
-            setSelectedTags([]);
-        } catch (e) {
-            console.error('error adding entry: ', e);
-        }
-        
-    };
+    try {
+        await addDoc(collection(db, 'entries'), {
+            entry: entry,
+            timestamp: serverTimestamp(),
+            tags: selectedTags,
+            imageUrl: imageUrl || null // Use the passed URL
+        });
+        setEntry('');
+        setSelectedTags([]);
+    } catch (e) {
+        console.error('Error adding entry: ', e);
+    }
+};
 
     return {
         entry, 

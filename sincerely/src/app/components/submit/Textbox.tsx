@@ -20,7 +20,8 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
     const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags} = entryHook;
     const { previewUrl, handleUpload, fileName, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const editableRef = useRef<HTMLDivElement>(null);
+
 
     // Resize handler
     useEffect(() => {
@@ -39,14 +40,6 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
         return () => window.removeEventListener("resize", resizeTextBox);
     }, []);
 
-    useEffect(() => {
-        if (textAreaRef.current) {
-            textAreaRef.current.style.height = "auto"
-            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        }
-
-    }, [entry])
-    
   //add or remove tags from the selected tags array
     const handleTags = (text: string) => {
 
@@ -62,29 +55,30 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
 
     }
     
-    const handleClick = async () => {
-
-        await handleUpload();
-        handleAddEntry(fileName);
-        setPreviewUrl("");
-
-    }
+   const handleClick = async () => {
+    const imageUrl = await handleUpload(); // Get the URL from handleUpload
+    await handleAddEntry(imageUrl); // Pass the URL instead of fileName
+    setPreviewUrl("");
+}
 
     return (
-        <div
+        
+        <div 
             ref={textBoxRef}
-            className="relative w-full bg-sincerely-grey-frame border-2 border-sincerely-grey-frame-border rounded-sm p-1 shadow-md flex flex-col space-y-1 justify-between"
+            className="relative w-1/2 bg-sincerely-grey-frame border-2 border-sincerely-grey-frame-border rounded-sm p-1 shadow-md flex flex-col space-y-1 justify-between"
         >
             <Frame />
+            <div className="absolute top-15 right-4 text-gray-400">
+                {entry.length} / 2000
+            </div>  
             <textarea
-                    value={entry}
-                    onChange={(e) => setEntry(e.target.value)}
-                    className="w-full h-full resize-none rounded-md bg-white px-4 py-8 border border-sincerely-grey-inside-border text-zinc-500 placeholder:text-zinc-400 placeholder:italic focus:outline-none"
-                    placeholder=""
-                />
-                <div className="absolute top-15 right-4 text-gray-400">
-                        {entry.length} / 2000
-                    </div>   
+                value={entry}
+                onChange={(e) => setEntry(e.target.value)}
+                className="w-full h-full resize-none rounded-md bg-white px-4 py-8 border border-sincerely-grey-inside-border text-zinc-500 placeholder:text-zinc-400 placeholder:italic focus:outline-none"
+                placeholder=""
+                maxLength={2000}
+            />
+            {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}/>}
             <div className="grid grid-cols-2 sm:grid-cols-[4fr_1fr]">
                 <div className="flex space-x-1">
                     {tags.map(({ text, color, hover}, index) => (
@@ -98,33 +92,13 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
                         />
                     ))}
                 </div>
-                <div className="flex-column items-center w-full h-full rounded-[10px] bg-white p-4 border border-neutral-300 overflow-y-scroll max-h-[400px]">
-                    <textarea
-                        value={entry}
-                        onChange={(e) => setEntry(e.target.value)}
-                        maxLength={2000}
-                        className=" w-full text-zinc-500 font-mono placeholder:text-zinc-400 placeholder:italic focus:outline-none resize-none"
-                        placeholder=""
-                        ref={textAreaRef}
-                    />
-                    {/* <Image 
-                        src = {previewUrl || "plane.svg"}
-                        alt = "plane.svg"
-                        width={300}
-                        height = {300}
-                        className="m-auto left-0 right-0"
-                    /> */}
-                    {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}/>}
-                </div>
-                <div className="absolute bottom-4 right-4">
+                
+                <div className="absolute bottom-1 right-1">
                     <SendButton onClick={handleClick} />
-                </div>
-                <div className="absolute bottom-4 left-4 text-xs text-gray-500">
-                    {entry.length} / 2000
                 </div>
 
             </div>
-        </div>
+                </div>
     );
 };
 

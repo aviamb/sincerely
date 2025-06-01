@@ -12,10 +12,10 @@ const TextboxContainer = () => {
     const entryHook = useAddEntry();
 
     return (
-        <>
+        <div className="flex-col mb-25">
             <Textbox upload={upload} entryHook={entryHook}/>
             <IconBar upload={upload}/>
-        </>
+        </div>
 
     )
 
