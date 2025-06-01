@@ -42,7 +42,7 @@ export const useAddEntry = (): UseAddEntryReturn => {
                     id: doc.id,
                     text:data.entry,
                     timestamp:data.timestamp || null,
-                    tags: data.tags || []
+                    tags: data.tags || [],
                     imageUrl: data.imageUrl || undefined
                 };
             });
