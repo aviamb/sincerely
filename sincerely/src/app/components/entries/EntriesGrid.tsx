@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react";
 import Entry from "@/app/components/entries/Entry";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
 import TagBar from "./TagBar";

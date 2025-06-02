@@ -1,3 +1,5 @@
+'use client';
+import React from "react";
 import Tag from "@/app/components/entries/Tag"
 import { tags } from "@/app/data/tags"
 
