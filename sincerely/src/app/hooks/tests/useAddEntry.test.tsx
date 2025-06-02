@@ -69,37 +69,3 @@ test('should add and retrieve an entry with tags', async () => {
   // Check that the entry contains the expected tags
   expect(data?.tags).toEqual(['tag1', 'tag2']);
 });
-
-// Test for image field (future use)
-//test('should add and retrieve an entry with image', async () => {
-  // Future implementation for image
-  // const docRef = doc(collection(db, 'entries'), 'test-entry-image');
-  // const entryData = { entry: 'Test Message', image: 'image_url' };
-
-  // // Add the entry to Firestore
-  // await setDoc(docRef, entryData);
-
-  // // Retrieve the entry from Firestore
-  // const docSnapshot = await getDoc(docRef);
-  // const data = docSnapshot.data();
-
-  // // Check that the entry contains the expected image value
-  // expect(data?.image).toBe('image_url');
-//});
-
-// Test for links field (future use)
-//test('should add and retrieve an entry with links', async () => {
-  // Future implementation for links
-  // const docRef = doc(collection(db, 'entries'), 'test-entry-links');
-  // const entryData = { entry: 'Test Message', links: ['https://example.com'] };
-
-  // // Add the entry to Firestore
-  // await setDoc(docRef, entryData);
-
-  // // Retrieve the entry from Firestore
-  // const docSnapshot = await getDoc(docRef);
-  // const data = docSnapshot.data();
-
-  // // Check that the entry contains the expected links value
-  // expect(data?.links).toEqual(expect.arrayContaining(['https://example.com']));
-//});
