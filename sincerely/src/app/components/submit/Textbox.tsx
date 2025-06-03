@@ -22,7 +22,6 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
     const { previewUrl, handleUpload, setFile, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
     const editableRef = useRef<HTMLDivElement>(null);
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 
     useEffect(() => {
@@ -41,14 +40,6 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
         return () => window.removeEventListener("resize", resizeTextBox);
     }, []);
 
-    useEffect(() => {
-        if (textAreaRef.current) {
-            textAreaRef.current.style.height = "auto"
-            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        }
-
-    }, [entry])
-
   //add or remove tags from the selected tags array
     const handleTags = (text: string) => {
 
@@ -64,7 +55,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
 
     }
     
-    const handleClick = async () => {
+   const handleClick = async () => {
     const imageUrl = await handleUpload(); 
     await handleAddEntry(imageUrl); 
     setPreviewUrl("");

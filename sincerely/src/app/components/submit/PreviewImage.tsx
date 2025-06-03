@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { DynamicIcon } from "lucide-react";
+import { DynamicIcon, iconNames } from 'lucide-react/dynamic';
 interface imageProps {
     previewUrl: string
     setPreviewUrl: React.Dispatch<React.SetStateAction<string>>;
