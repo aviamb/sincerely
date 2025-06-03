@@ -21,7 +21,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
     const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags} = entryHook;
     const { previewUrl, handleUpload, setFile, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
-    const editableRef = useRef<HTMLDivElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 
     useEffect(() => {
@@ -54,6 +54,15 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
         }
 
     }
+
+    useEffect(() => {
+        if (textAreaRef.current) {
+            textAreaRef.current.style.height = "auto"
+            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+        }
+
+    }, [entry])
+
     
    const handleClick = async () => {
     const imageUrl = await handleUpload(); 

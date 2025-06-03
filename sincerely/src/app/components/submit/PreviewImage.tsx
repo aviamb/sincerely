@@ -30,7 +30,7 @@ const PreviewImage = ({previewUrl, setPreviewUrl, setFile}: imageProps) => {
                 name="x" 
                 className="absolute top-4 right-4 cursor-pointer" 
                 color="grey"
-                onClick={handleClick()}
+                onClick={() => handleClick()}
             />
             </button>
         </div>
