@@ -11,9 +11,10 @@ interface EntryProps {
   spotifyUrl?: string;
   timestamp: any;
   imageUrl?: string;
+  tags?: string[];
 }
 
-const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
+const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
   //timestamp
   const formattedTimestamp = timestamp?.toDate?.().toLocaleDateString() || "Undated";
 
@@ -31,6 +32,13 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
     imageUrl.startsWith('https') ||
     imageUrl.startsWith('/')
   );
+
+  const tagColorMap: Record<string, string> = {
+    love: "bg-pink-200 text-pink-700",
+    class: "bg-yellow-200 text-yellow-700",
+    ucr: "bg-blue-200 text-blue-700",
+    other: "bg-green-200 text-green-700",
+  };
 
   return (
     <Dialog>
@@ -63,6 +71,21 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
             </div>
           )}
 
+          {tags && tags.length > 0 && (
+            <div className="absolute left-0 bottom-0 flex flex-wrap gap-2 p-4">
+              {tags.map(tag => (
+                <span
+                  key={tag}
+                  className={`text-xs px-2 py-1 rounded font-semibold ${
+                    tagColorMap[tag.replace("#", "")] || "bg-gray-200 text-gray-700"
+                  }`}
+                >
+                  #{tag.replace("#", "")}
+                </span>
+              ))}
+            </div>
+          )}
+
           <p className="absolute bottom-0 right-0 text-xs text-gray-500 p-4">{formattedTimestamp}</p>
         </div>
       </DialogTrigger>
@@ -72,33 +95,50 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl }: EntryProps) => {
           <DialogTitle>Entry</DialogTitle>
         </VisuallyHidden>
 
-        <div className="space-y-4 p-1 md:p-3 overflow-y-auto">
-          <div className="text-xs md:text-sm text-gray-500">{formattedTimestamp}</div>
-          <div className="break-words text-xs md:text-sm whitespace-pre-wrap">{cleanText}</div>
-          
-          {shouldShowImage && (
-          <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}> 
-            <Image
-              src={imageUrl}
-              alt="Entry image"
-              fill
-              className="object-contain rounded-md p-3"
-              unoptimized={true}
-              priority={false}
-            />
+        <div className="space-y-4 p-1 md:p-3 overflow-y-auto h-full flex flex-col justify-between">
+          <div>
+            <div className="text-xs md:text-sm text-gray-500">{formattedTimestamp}</div>
+            <div className="break-words text-xs md:text-sm whitespace-pre-wrap">{cleanText}</div>
+            
+            {shouldShowImage && (
+              <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}> 
+                <Image
+                  src={imageUrl}
+                  alt="Entry image"
+                  fill
+                  className="object-contain rounded-md p-3"
+                  unoptimized={true}
+                  priority={false}
+                />
+              </div>
+            )}
+            
+            {embedUrl && (
+              <iframe
+                src={embedUrl}
+                width="100%"
+                height="152"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                allowTransparency
+                className="mt-2"
+                title="Spotify Embed"
+              ></iframe>
+            )}
           </div>
-        )}
           
-          {embedUrl && (
-            <iframe
-              src={embedUrl}
-              width="100%"
-              height="152"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              allowtransparency
-              className="mt-2"
-              title="Spotify Embed"
-            ></iframe>
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {tags.map(tag => (
+                <span
+                  key={tag}
+                  className={`text-xs px-2 py-1 rounded font-semibold ${
+                    tagColorMap[tag.replace("#", "")] || "bg-gray-200 text-gray-700"
+                  }`}
+                >
+                  #{tag.replace("#", "")}
+                </span>
+              ))}
+            </div>
           )}
         </div>
       </DialogContent>
