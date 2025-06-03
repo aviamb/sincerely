@@ -4,9 +4,17 @@ import { DynamicIcon } from "lucide-react";
 interface imageProps {
     previewUrl: string
     setPreviewUrl: React.Dispatch<React.SetStateAction<string>>;
+    setFile: React.Dispatch<React.SetStateAction<File | null>>
 }
 
-const PreviewImage = ({previewUrl, setPreviewUrl}: imageProps) => {
+const PreviewImage = ({previewUrl, setPreviewUrl, setFile}: imageProps) => {
+
+    const handleClick = () => {
+
+        setPreviewUrl("")
+        setFile(null)
+
+    }
 
     return (
         <div className="relative w-75 h-75 m-auto left-0 right-0">
@@ -22,7 +30,7 @@ const PreviewImage = ({previewUrl, setPreviewUrl}: imageProps) => {
                 name="x" 
                 className="absolute top-4 right-4 cursor-pointer" 
                 color="grey"
-                onClick={() => setPreviewUrl("")}
+                onClick={handleClick()}
             />
             </button>
         </div>

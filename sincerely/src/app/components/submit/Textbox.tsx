@@ -19,7 +19,7 @@ interface TextboxProps {
 
 const Textbox = ({upload, entryHook}: TextboxProps) => {
     const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags} = entryHook;
-    const { previewUrl, handleUpload, fileName, setPreviewUrl } = upload;
+    const { previewUrl, handleUpload, setFile, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
     const editableRef = useRef<HTMLDivElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -96,7 +96,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
                         height = {300}
                         className="m-auto left-0 right-0"
                     /> */}
-                    {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}/>}
+                    {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl} setFile={setFile}/>}
                 </div>
             <div className="grid grid-cols-2 sm:grid-cols-[4fr_1fr]">
                 <div className="flex space-x-1">
