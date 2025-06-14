@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import React from "react";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/app/ui/Dialog";
@@ -9,16 +9,19 @@ interface EntryProps {
   id: string;
   text: string;
   spotifyUrl?: string;
-  timestamp: any;
+  timestamp: string | { toDate: () => Date } | null | undefined;
   imageUrl?: string;
   tags?: string[];
 }
 
 const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
-  //timestamp
-  const formattedTimestamp = timestamp || "Undated";
+  // Format timestamp as MM/DD/YYYY
+  const formattedTimestamp =
+    typeof timestamp === "string"
+      ? timestamp
+      : timestamp?.toDate?.().toLocaleDateString("en-US") ?? "Undated";
 
-  //spotify
+  // Spotify embed logic
   const extractSpotifyEmbedUrl = (text: string): string | null => {
     const match = text.match(/https?:\/\/open\.spotify\.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/);
     return match ? `https://open.spotify.com/embed/${match[1]}/${match[2]}` : null;
@@ -26,13 +29,14 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
   const embedUrl = spotifyUrl || extractSpotifyEmbedUrl(text);
   const cleanText = text.replace(/https?:\/\/open\.spotify\.com\/(track|album|playlist|episode)\/[a-zA-Z0-9]+(\?[^ ]*)?/g, "").trim();
 
-  //images
+  // Check if image should be shown
   const shouldShowImage = imageUrl && (
     imageUrl.startsWith('http') || 
     imageUrl.startsWith('https') ||
     imageUrl.startsWith('/')
   );
 
+  // Tag color mapping
   const tagColorMap: Record<string, string> = {
     love: "bg-pink-200 text-pink-700",
     class: "bg-yellow-200 text-yellow-700",
@@ -47,17 +51,17 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
           <p className="line-clamp-10">{cleanText}</p>
 
           {shouldShowImage && (
-          <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}> 
-            <Image
-              src={imageUrl}
-              alt="Entry image"
-              fill
-              className="object-contain rounded-md p-3"
-              unoptimized={true}
-              priority={false}
-            />
-          </div>
-        )}
+            <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}>
+              <Image
+                src={imageUrl}
+                alt="Entry image"
+                fill
+                className="object-contain rounded-md p-3"
+                unoptimized
+                priority={false}
+              />
+            </div>
+          )}
 
           {embedUrl && (
             <div className="mt-2">
@@ -86,7 +90,9 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
             </div>
           )}
 
-          <p className="absolute bottom-0 right-0 text-xs text-gray-500 p-4">{formattedTimestamp}</p>
+          <p className="absolute bottom-0 right-0 text-xs text-gray-500 p-4">
+            {formattedTimestamp}
+          </p>
         </div>
       </DialogTrigger>
 
@@ -99,33 +105,32 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
           <div>
             <div className="text-xs md:text-sm text-gray-500">{formattedTimestamp}</div>
             <div className="break-words text-xs md:text-sm whitespace-pre-wrap">{cleanText}</div>
-            
+
             {shouldShowImage && (
-              <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}> 
+              <div className="mt-2 relative w-full" style={{ paddingBottom: '75%' }}>
                 <Image
                   src={imageUrl}
                   alt="Entry image"
                   fill
                   className="object-contain rounded-md p-3"
-                  unoptimized={true}
+                  unoptimized
                   priority={false}
                 />
               </div>
             )}
-            
+
             {embedUrl && (
               <iframe
                 src={embedUrl}
                 width="100%"
                 height="152"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                // allowTransparency
                 className="mt-2"
                 title="Spotify Embed"
               ></iframe>
             )}
           </div>
-          
+
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
               {tags.map(tag => (
