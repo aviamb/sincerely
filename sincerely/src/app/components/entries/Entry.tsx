@@ -9,12 +9,12 @@ interface EntryProps {
   id: string;
   text: string;
   spotifyUrl?: string;
-  timestamp: any;
+  timestamp: string;
   imageUrl?: string;
   tags?: string[];
 }
 
-const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
+const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
   //timestamp
   const formattedTimestamp = timestamp?.toDate?.().toLocaleDateString() || "Undated";
 
@@ -119,7 +119,7 @@ const Entry = ({ text, id, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) 
                 width="100%"
                 height="152"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                allowTransparency
+                // allowTransparency
                 className="mt-2"
                 title="Spotify Embed"
               ></iframe>

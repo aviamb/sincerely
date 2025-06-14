@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { db } from "../../../lib/firebase";
 import {collection, addDoc, query, orderBy, serverTimestamp, Timestamp, onSnapshot} from 'firebase/firestore';
-import { uploadImage } from "./uploadImage";
 
 interface Entry {
     id: string;
@@ -27,9 +26,9 @@ export const useAddEntry = (): UseAddEntryReturn => {
     const [entries, setEntries] = useState<Entry[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-    const isValidImageUrl = (url?: string): url is string => {
-        return !!url && (url.startsWith('http') || url.startsWith('/'));
-    };
+    // const isValidImageUrl = (url?: string): url is string => {
+    //     return !!url && (url.startsWith('http') || url.startsWith('/'));
+    // };
 
 
     useEffect(() => {

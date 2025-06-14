@@ -1,6 +1,6 @@
 jest.mock('firebase/firestore', () => ({
-  getFirestore: jest.fn(() => ({} as any)),
-  collection: jest.fn(() => ({} as any)),
+  getFirestore: jest.fn(() => ({} as unknown)),
+  collection: jest.fn(() => ({} as unknown)),
   addDoc: jest.fn(() => Promise.resolve()),
   query: jest.fn(),
   orderBy: jest.fn(),
@@ -11,10 +11,10 @@ jest.mock('firebase/firestore', () => ({
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { useAddEntry } from '../useAddEntry';
 import {
-  collection,
+  // collection,
   addDoc,
   onSnapshot,
-  serverTimestamp,
+  // serverTimestamp,
 } from 'firebase/firestore';
 
 describe('useAddEntry', () => {

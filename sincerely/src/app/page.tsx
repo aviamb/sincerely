@@ -1,5 +1,3 @@
-import IconBar from "./components/submit/IconBar";
-import Textbox from "./components/submit/Textbox";
 import TextboxContainer from "./components/submit/TextboxContainer";
 import Description from "./components/submit/Description";
 

@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 
 import SendButton from "./SendButton";
 import Frame from "./Frame";
@@ -19,9 +18,9 @@ interface TextboxProps {
 
 const Textbox = ({upload, entryHook}: TextboxProps) => {
     const { entry, setEntry, handleAddEntry, selectedTags, setSelectedTags} = entryHook;
-    const { previewUrl, handleUpload, fileName, setPreviewUrl } = upload;
+    const { previewUrl, handleUpload, setPreviewUrl } = upload;
     const textBoxRef = useRef<HTMLDivElement>(null);
-    const editableRef = useRef<HTMLDivElement>(null);
+    // const editableRef = useRef<HTMLDivElement>(null);
 
 
     useEffect(() => {
@@ -48,7 +47,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
             console.log("tag added");
         }
         else {
-            const newArray = selectedTags.filter((item, index) => item !== text);
+            const newArray = selectedTags.filter((item) => item !== text);
             setSelectedTags(newArray); 
             console.log("tag removed");
         }
@@ -81,7 +80,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
             {(previewUrl != "") && <PreviewImage previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}/>}
             <div className="grid grid-cols-2 sm:grid-cols-[4fr_1fr]">
                 <div className="flex space-x-1">
-                    {tags.map(({ text, color, hover}, index) => (
+                    {tags.map(({ text, color, hover}) => (
                         <Tag 
                             text={text}
                             color={color}
