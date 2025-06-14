@@ -1,7 +1,7 @@
 'use client'
 
 import { Music, Link } from "lucide-react";
-import { uploadImage, UploadImageHook } from "@/app/hooks/uploadImage";
+import { UploadImageHook } from "@/app/hooks/uploadImage";
 import ImageUploadButton from "./ImageUploadDialog";
 
 const IconBar = ({upload} : { upload: UploadImageHook }) => {

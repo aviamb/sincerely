@@ -4,7 +4,6 @@ import React from "react";
 import Entry from "@/app/components/entries/Entry";
 import { useAddEntry } from "@/app/hooks/useAddEntry";
 import TagBar from "./TagBar";
-import { useState } from "react";
 
 const EntriesGrid = () => {
     const { entries, selectedTags, setSelectedTags } = useAddEntry();

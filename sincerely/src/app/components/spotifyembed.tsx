@@ -44,7 +44,7 @@ const SpotifyEmbed: React.FC = () => {
           height="152"
           frameBorder="0"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          allowTransparency={true}
+          // allowTransparency={true}
           title="Spotify Track Embed"
         ></iframe>
       )}

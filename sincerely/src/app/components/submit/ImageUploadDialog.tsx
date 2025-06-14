@@ -1,8 +1,5 @@
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/app/ui/Dialog"
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { DynamicIcon } from "lucide-react/dynamic";
-import Image from "next/image";
-import { uploadImage, UploadImageHook } from "@/app/hooks/uploadImage";
+import { UploadImageHook } from "@/app/hooks/uploadImage";
 
 const ImageUploadButton = ( {upload} : { upload: UploadImageHook }) => {
 
