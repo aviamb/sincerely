@@ -6,7 +6,7 @@ const Home = () => {
     <div>
       <nav className="flex items-center p-4">
       </nav>
-      <div className="flex justify-center p-20 ml-30">
+      <div className="flex justify-center p-20 ml-30 h-screen">
         <div>
           <TextboxContainer />
         </div>
