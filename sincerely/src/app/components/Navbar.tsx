@@ -2,7 +2,8 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <div className="w-full grid grid-cols-[3fr_1fr_1fr_2fr] gap-4 items-center justify-between px-8 pb-6 pt-10 text-sm text-gray-700">
+    <div className="w-full grid grid-cols-[2fr_1fr_1fr_2fr] items-center justify-between px-8 pb-6 pt-10 text-sm text-gray-700">
+      <div className="mb-2">
       <Link href="/">
         <img
           src="/sincerely-logo.svg"
@@ -10,9 +11,10 @@ const Navbar = () => {
           className="md:w-1/3 lg:w-1/4 cursor-pointer"
           />
       </Link>
+      </div>
       <Link href="/" className="hover:underline">submit</Link>
       <Link href="/pages/entries" className="hover:underline">entries</Link>
-      <div>{}</div>
+      <Link href="/about" className="hover:underline">about</Link>
     </div>
   );
 };
