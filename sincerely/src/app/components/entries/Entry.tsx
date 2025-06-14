@@ -9,14 +9,14 @@ interface EntryProps {
   id: string;
   text: string;
   spotifyUrl?: string;
-  timestamp: string;
+  timestamp: any;
   imageUrl?: string;
   tags?: string[];
 }
 
 const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
   //timestamp
-  const formattedTimestamp = timestamp?.toDate?.().toLocaleDateString() || "Undated";
+  const formattedTimestamp = timestamp || "Undated";
 
   //spotify
   const extractSpotifyEmbedUrl = (text: string): string | null => {
@@ -119,7 +119,7 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
                 width="100%"
                 height="152"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                // allowTransparency
+                allowTransparency
                 className="mt-2"
                 title="Spotify Embed"
               ></iframe>
