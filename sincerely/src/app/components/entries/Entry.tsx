@@ -119,7 +119,7 @@ const Entry = ({ text, timestamp, spotifyUrl, imageUrl, tags }: EntryProps) => {
                 width="100%"
                 height="152"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                allowTransparency
+                // allowTransparency
                 className="mt-2"
                 title="Spotify Embed"
               ></iframe>
