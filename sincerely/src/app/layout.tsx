@@ -11,7 +11,7 @@ const chivo_Mono = Chivo_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sincerely,",
+  title: "sincerely",
   description: "",
 };
 
