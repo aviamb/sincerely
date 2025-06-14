@@ -45,7 +45,7 @@ const Textbox = ({ upload, entryHook }: TextboxProps) => {
       "
     >
       <Frame />
-      <div className="absolute top-2 right-4 text-gray-400 text-xs">
+      <div className="absolute top-16 right-6 text-gray-400 text-xs">
         {entry.length} / 2000
       </div>
 
