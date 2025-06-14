@@ -56,7 +56,7 @@ const Textbox = ({upload, entryHook}: TextboxProps) => {
     
    const handleClick = async () => {
     const imageUrl = await handleUpload(); 
-    await handleAddEntry(imageUrl); 
+    await handleAddEntry(imageUrl ?? undefined);
     setPreviewUrl("");
 }
 
