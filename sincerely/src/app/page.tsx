@@ -3,19 +3,17 @@ import Description from "./components/submit/Description";
 
 const Home = () => {
   return (
-    <div>
-      <nav className="flex items-center p-4">
-      </nav>
-      <div className="flex justify-center p-20 ml-30 h-screen">
-        <div>
+    <main className="min-h-screen flex items-center justify-center px-4 py-10">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-10 max-w-6xl w-full">
+        <div className="flex-1">
           <TextboxContainer />
         </div>
-        <div className="ml-5">
+
+        <div className="md:w-[300px] text-sm text-gray-700">
           <Description />
         </div>
       </div>
-      
-    </div>
+    </main>
   );
 };
 
