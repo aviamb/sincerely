@@ -39,10 +39,18 @@ const EntriesGrid = () => {
                         key={entry.id}
                         id={entry.id}
                         text={entry.text}
-                        timestamp={entry.timestamp}
+                        timestamp={
+                        entry.timestamp
+                            ? entry.timestamp.toDate().toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            })
+                            : ""
+                        }
                         imageUrl={entry.imageUrl}
                         tags={entry.tags}
-                    />
+                     />
                 ))}
             </div>
         </div>
